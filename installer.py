@@ -8,6 +8,11 @@ def install(package):
     try:
         main(['install'] + [str(package)])
     except Exception as e:
+        try:
+            main(['uninstall'] + [str(package)])
+        except Exception as e:
+            error_log.write(str(e))
+        install(package)
         error_log.write(str(e))
 
 if __name__ == '__main__':
